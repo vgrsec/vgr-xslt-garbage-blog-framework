@@ -9,7 +9,7 @@ Somebody sent me some cool [code](https://github.com/pacocoursey/xslt) which ins
 So, this probably is all fine. I mostly don't understand the inner workings because ChatGPT vibed with me for a few days... so I'm logging a bunch to console. Either way, you're welcome, and I'm sorry, for this. `vgr`
 
 [Demo – garbageblogframework.vgrsec.com](https://garbageblogframework.vgrsec.com)  
-[Code – github.com/vgrsec/vgr-xslt-garbage-blog-framework](https://github.com/vgrsec/vgr-garbage-blog-framework)
+[Code – github.com/vgrsec/vgr-xslt-garbage-blog-framework](https://github.com/vgrsec/vgr-xslt-garbage-blog-framework)
 
 ## Overview
 
