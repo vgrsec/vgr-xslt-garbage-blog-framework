@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="../../xslt/site.xsl"?>
 <page id="page-home">
       <h1>Welcome!</h1>
-      <p>This is the dumbest blog template possible written in an archaic xml based framework.</p>
+      <p>This is the dumbest blog framework possible written in an archaic xml based language.</p>
 
       <p>Seriously. <a href="https://www.w3.org/Style/XSL/" target="_blank">W3</a> last talked about this technology in 2017.</p>
 

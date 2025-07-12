@@ -1,6 +1,6 @@
 # Welcome!
 
-This is the dumbest blog template possible written in an archaic xml‑based framework.
+This is the dumbest blog framework possible written in an archaic xml‑based language.
 
 Seriously. [W3](https://www.w3.org/Style/XSL/) last talked about this technology in 2017.
 
