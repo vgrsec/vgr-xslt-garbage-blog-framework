@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="../../xslt/site.xsl"?>
+<page id="page-home">
+      <h1>Welcome!</h1>
+      <p>This is the dumbest blog template possible written in an archaic xml based framework.</p>
+
+      <p>Seriously. <a href="https://www.w3.org/Style/XSL/" target="_blank">W3</a> last talked about this technology in 2017.</p>
+
+      <p>So, this probably is all fine. I mostly don't understand the inner workings because ChatGPT vibed with me for a few days... so I'm logging a bunch to console. Either way, you're welcome, and I'm sorry, for this.  <output name="vgr">vgr</output></p>
+      <p>
+        <a href="https://garbageblogframework.vgrsec.com" target="_blank">
+          Demo - https://garbageblogframework.vgrsec.com</a><br/>
+        <a href="https://github.com/vgrsec/vgr-xslt-garbage-blog-framework" target="_blank">Code - https://github.com/vgrsec/vgr-garbage-blog-framework</a>
+      </p>
+
+
+      <h2>Overview</h2>
+      <p>To use this framework for blogging.
+        <ul>
+          <li>Record a blog entry in ./content/blog.xml</li>
+          <pre><code>&lt;post&gt;
+  &lt;title&gt;First Post&lt;/title&gt;
+  &lt;subtitle&gt;This is a description of the blog post&lt;/subtitle&gt;
+  &lt;date&gt;2024-04-01&lt;/date&gt;
+  &lt;author&gt;VGR&lt;/author&gt;
+  &lt;/post&gt;</code></pre>
+            <li>These fields are used to populate the blogs header. Make sure the date matches the blog file name and the date in the file.          
+            </li>
+
+          <li>Create a file in ./content/ YYYYMMDD.xml</li>
+          <li>Insert the following code.</li>
+          <pre><code>&lt;blog&gt;
+  &lt;post&gt;
+    &lt;date&gt;2025-07-07&lt;/date&gt;
+    &lt;content&gt;
+      &lt;p&gt;Why am I here&lt;/p&gt;
+    &lt;/content&gt;
+  &lt;/post&gt;
+&lt;/blog&gt;</code></pre>
+            <li>The <code>date</code> field is used to associate this entry with ./content/blog.xml make sure it matches. You can put any HTML you want into <code>content</code></li>
+  
+        </ul>
+        <blockquote>
+          If you get xml errors wrap the erroring code in <a href="https://www.tutorialspoint.com/xml/xml_cdata_sections.htm" target="_blank">CDATA</a>
+        </blockquote></p>
+
+
+    <h2>Customizing</h2>
+    <p>
+      This framework comes equiped with an "easy" to use theme engine. By default it comes with:</p>
+      <ol>
+        <li>Light Mode</li>
+        <li>Dark Mode</li>
+        <li>Hot Dog Stand</li>
+        <li>OMG Pony</li>
+      </ol>
+    <p>
+      Add new themes by modifying ./templates/site-template.xslt. </p>
+<ul>
+  <li>You'll find <code>body.dark</code> and other themes waiting. Copy and paste a theme block, give your theme a new <code>body.$name</code>. </li>
+    <li>Once named and set go to <code>console.log("Theme Script")</code> and add your theme to the array of names. </li>
+     <li>Finally add the theme button inside <code>&lt;aside class="sidebar"&gt;</code> by copying an existing button and modifying <code>id="btn-$name"</code>, <code>background:#</code>, and <code>fill:#</code>. </li>
+   </ul>
+    <p>
+      Oh also I'm using a licensed font. <a href="https://input.djr.com/" target="_blank">input mono</a> because frankly its the perfect font and I love it. Its not licensed to you, and probably won't work. So you'll have to rip it out of the CSS... 
+    </p>
+    <h2>Theme Demo</h2>
+    <p>
+      Check out the premade <a href="./template.xml">template</a> to see all of the different html tags in action with the theme. I probably covered everything in a 5 dollar bootstrap theme. Maybe not. who cares.
+    </p>
+    <h3>Demo Attribution</h3>
+    <ul>
+      <li>Video: <a href="https://commons.wikimedia.org/wiki/File:Apollo_11._Television_clip_of_Buzz_descending_the_ladder_and_stepping_onto_the_moon,_1094228.ogv" target="_blank">https://commons.wikimedia.org/wiki/File:Apollo_11._Television_clip_of_Buzz_descending_the_ladder_and_stepping_onto_the_moon,_1094228.ogv</a></li>
+      <li>Audio: <a href="https://commons.wikimedia.org/wiki/File:Lady_Gaga_performs_The_Star-Spangled_Banner_audio.ogg" target="_blank">https://commons.wikimedia.org/wiki/File:Lady_Gaga_performs_The_Star-Spangled_Banner_audio.ogg</a></li>
+    </ul>
+
+      <img src="../assets/pages/home/home.png" alt="a quiet place"/>
+
+</page>
