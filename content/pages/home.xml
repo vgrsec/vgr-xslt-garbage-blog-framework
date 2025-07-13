@@ -4,7 +4,7 @@
       <h1>Welcome!</h1>
       <p>This is the dumbest blog framework possible written in an archaic xml based language.</p>
 
-      <p>Seriously. <a href="https://www.w3.org/Style/XSL/" target="_blank">W3</a> last talked about this technology in 2017.</p>
+      <p>Seriously. <a href="https://www.w3.org/Style/XSL/" target="_blank">W3</a> last talked about this technology in 2017. Except we're not using XSLT 3.0 we're using <a href="https://www.w3.org/TR/xslt-10/" target="_blank">XSLT 1.0!</a> from 1999.</p>
 
       <p>Somebody sent me some cool <a href="https://github.com/pacocoursey/xslt" target="_blank">code</a> which inspired me to learn more. </p>
 
@@ -17,35 +17,63 @@
 
 
       <h2>Overview</h2>
+      <p>For more info see <a href="./faq.xml">FAQ</a></p>
       <p>To use this framework for blogging.
         <ul>
-          <li>Record a blog entry in ./content/blog.xml</li>
-          <pre><code>&lt;post&gt;
-  &lt;title&gt;First Post&lt;/title&gt;
-  &lt;subtitle&gt;This is a description of the blog post&lt;/subtitle&gt;
-  &lt;date&gt;2024-04-01&lt;/date&gt;
-  &lt;author&gt;VGR&lt;/author&gt;
-  &lt;/post&gt;</code></pre>
+          <li>Record a blog entry in <code>./content/posts.xml</code></li>
+            <pre><code>&lt;item&gt;
+  &lt;title&gt;Last Blog Post&lt;/title&gt;
+  &lt;description&gt;
+    I am Jack&apos;s XML Parser. I consume unclosed tags I kill jack.
+  &lt;/description&gt;
+  &lt;link&gt;https://demo.vgrsec.com/content/posts/20250707.xml&lt;/link&gt;
+  &lt;guid isPermaLink=&quot;false&quot;&gt;post-20250707&lt;/guid&gt;
+  &lt;pubDate&gt;Mon, 7 Jul 2025 13:00:00 +0000&lt;/pubDate&gt;
+  &lt;author&gt;vgr.xsltgbf@example.com (vgr)&lt;/author&gt;
+&lt;/item&gt;</code></pre>
             <li>These fields are used to populate the blogs header. Make sure the date matches the blog file name and the date in the file.          
             </li>
 
-          <li>Create a file in ./content/ YYYYMMDD.xml</li>
+          <li>Create a file in <code>./content/pages/YYYYMMDD.xml</code></li>
           <li>Insert the following code.</li>
-          <pre><code>&lt;blog&gt;
-  &lt;post&gt;
-    &lt;date&gt;2025-07-07&lt;/date&gt;
-    &lt;content&gt;
-      &lt;p&gt;Why am I here&lt;/p&gt;
+          <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;../../xslt/site.xsl&quot;?&gt;
+&lt;blogpost id=&quot;post-YYYYMMDD&quot;&gt;
+    &lt;content&gt;      
     &lt;/content&gt;
-  &lt;/post&gt;
-&lt;/blog&gt;</code></pre>
-            <li>The <code>date</code> field is used to associate this entry with ./content/blog.xml make sure it matches. You can put any HTML you want into <code>content</code></li>
+&lt;/blogpost&gt;</code></pre>
+            <li>The <code>id</code> field is used to associate this entry with ./content/posts.xml make sure it matches. You can put any HTML you want into <code>content</code>(maybe?)</li>
   
         </ul>
         <blockquote>
           If you get xml errors wrap the erroring code in <a href="https://www.tutorialspoint.com/xml/xml_cdata_sections.htm" target="_blank">CDATA</a>
         </blockquote></p>
-
+        <p>I did some testing, it seems to work. I don't use chrome, or android so it might work?</p>
+        <table>
+          <caption>Will it load?</caption>
+          <thead>
+            <tr>
+              <th>Engine</th>
+              <th>Chrome (Blink)</th>
+              <th>Firefox (Gecko)</th>
+              <th>Safari (WebKit)</th>
+              <th>Edge (Blink)</th>
+              <th>Android WebView</th>
+              <th>iOS Safari</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Support</td>
+              <td>🤷</td>
+              <td>✅</td>
+              <td>✅</td>
+              <td>🤷</td>
+              <td>🤷</td>
+              <td>✅</td>
+            </tr>
+          </tbody>
+        </table>        
 
     <h2>Customizing</h2>
     <p>
@@ -57,7 +85,7 @@
         <li>OMG Pony</li>
       </ol>
     <p>
-      Add new themes by modifying ./templates/site-template.xslt. </p>
+      Add new themes by modifying ./xslt/site.xslt. </p>
 <ul>
   <li>You'll find <code>body.dark</code> and other themes waiting. Copy and paste a theme block, give your theme a new <code>body.$name</code>. </li>
     <li>Once named and set go to <code>console.log("Theme Script")</code> and add your theme to the array of names. </li>

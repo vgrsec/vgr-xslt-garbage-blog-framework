@@ -10,7 +10,6 @@
   <!-- Global data sources -->
   <xsl:variable name="nav" select="document('/content/pages.xml')/nav"/>
   <xsl:variable name="feedItems" select="document('/content/posts.xml')/rss/channel/item"/>
-  <!-- Entry-point: dispatch based on root element -->
 
   <xsl:key name="posts-by-year" 
            match="item" 
@@ -200,8 +199,6 @@
 
   </html>
 </xsl:template>
-
-
 
 <xsl:template name="render-metadata">
     <xsl:variable name="current" 
@@ -576,6 +573,15 @@
         max-height: 90%;
         z-index: 1000;
         box-shadow: 0 0 10px var(--lightbox-shadow);
+      }
+
+      details img {
+        /* kill the extra indent */
+        margin-left: 0;
+        /* keep the original responsive behaviour */
+        max-width: 95%;
+        height: auto;
+        display: block;   /* avoids inline-gap under the image */
       }
 
       /* Main nav */
@@ -974,7 +980,6 @@
   </style>
 </xsl:template>
 
-<!-- Main render template: builds full page layout -->
 <xsl:template name="render">
 
   <xsl:param name="view"/>
@@ -1302,7 +1307,5 @@
         </script>
       </body>
   </xsl:template>
-
-
 
 </xsl:stylesheet>
