@@ -200,15 +200,6 @@
   </html>
 </xsl:template>
 
-<xsl:template name="render-metadata">
-    <xsl:variable name="current" 
-                select="
-                  $nav/page[@id    = $view]
-                  |
-                  $feedItems[guid = $view]
-                "/>
-
-</xsl:template>
 
 <xsl:template name="render-css">
 
@@ -228,6 +219,7 @@
         --time-font-weight:    normal;
         --time-margin:         0.5em 0;
         --font-family-base:   "Input Mono Reg", monospace;
+        --font-size:          0.5em;
         --kbd-padding:        0.2em 0.4em;
         --kbd-radius:         3px;
         --samp-padding:       var(--kbd-padding);
@@ -384,14 +376,15 @@
 
 
       body {
-        margin: 0;
-        padding: 0;
-        background: var(--bg);
-        color: var(--text);
-        font-family: var(--font-family-base);
-        line-height: 1.4;
-        overflow-x: hidden;
-        transition: background 0.3s, color 0.3s;
+        margin:       0;
+        padding:      0;
+        background:   var(--bg);
+        color:        var(--text);
+        font-family:  var(--font-family-base);
+        font-size:    var(--font-family-base);
+        line-height:  1.4;
+        overflow-x:   hidden;
+        transition:   background 0.3s, color 0.3s;
       }
 
       /* Links */
@@ -579,7 +572,7 @@
         /* kill the extra indent */
         margin-left: 0;
         /* keep the original responsive behaviour */
-        max-width: 95%;
+        max-width: 90%;
         height: auto;
         display: block;   /* avoids inline-gap under the image */
       }
@@ -730,6 +723,13 @@
 
       /* Full Table Styling */
       table {
+        display: block;
+        position: relative;
+        width: 100%;
+        overflow-x: auto;  
+        overflow-y: hidden;  
+        scrollbar-gutter: stable;  
+
         width: 100%;
         border-collapse: separate;           /* separate so outer border shows */
         border-spacing: 0;                   /* no gaps between cells */
@@ -737,6 +737,8 @@
         margin: 1em 0;
         background: var(--container-bg);
         color: var(--text);
+        width: 100%;
+        overflow-x: auto;        
       }
 
       table th,

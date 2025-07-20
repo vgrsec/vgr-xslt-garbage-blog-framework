@@ -2,13 +2,13 @@
 <?xml-stylesheet type="text/xsl" href="../../xslt/site.xsl"?>
 <page id="page-home">
       <h1>Welcome!</h1>
-      <p>This is the dumbest blog framework possible written in an archaic xml based language.</p>
+      <p>This is the dumbest blog framework possible, written in an archaic xml based language.</p>
 
-      <p>Seriously. <a href="https://www.w3.org/Style/XSL/" target="_blank">W3</a> last talked about this technology in 2017. Except we're not using XSLT 3.0 we're using <a href="https://www.w3.org/TR/xslt-10/" target="_blank">XSLT 1.0!</a> from 1999.</p>
+      <p>Seriously. The <a href="https://www.w3.org/Style/XSL/" target="_blank">W3C</a> last talked about this technology in 2017. Except we're not using XSLT 3.0. We're using <a href="https://www.w3.org/TR/xslt-10/" target="_blank">XSLT 1.0!</a> from 1999.</p>
 
-      <p>Somebody sent me some cool <a href="https://github.com/pacocoursey/xslt" target="_blank">code</a> which inspired me to learn more. </p>
+      <p>This all started when somebody sent me some cool <a href="https://github.com/pacocoursey/xslt" target="_blank">code</a>. I wanted to to update my blog template for years, but couldn't be bothered to figure out what's latest in web development frameworks. I learned about XSLT at about the same time I came up with a few new articles to write. This timing created the perfect environment for <a href="https://themindcollection.com/yak-shaving/" target="_blank">Yak Shaving</a>. Thus, before I publish new blog posts, I need to update my blog framework. Before I publish my blog framework, I need to write the framework so it's reusable... and so forth. </p>
 
-      <p>So, this probably is all fine. I mostly don't understand the inner workings because ChatGPT vibed with me for a few days... so I'm logging a bunch to console. Either way, you're welcome, and I'm sorry, for this.  <output name="vgr">vgr</output></p>
+      <p>So, this framework probably works just fine. I mostly don't understand the inner workings of this framework because ChatGPT vibed with me for a few days... so I'm logging a bunch to console. Either way, you're welcome, and I'm sorry, for this.  <output name="vgr">vgr</output></p>
       <p>
         <a href="https://garbageblogframework.vgrsec.com" target="_blank">
           Demo - https://garbageblogframework.vgrsec.com</a><br/>
@@ -31,10 +31,10 @@
   &lt;pubDate&gt;Mon, 7 Jul 2025 13:00:00 +0000&lt;/pubDate&gt;
   &lt;author&gt;vgr.xsltgbf@example.com (vgr)&lt;/author&gt;
 &lt;/item&gt;</code></pre>
-            <li>These fields are used to populate the blogs header. Make sure the date matches the blog file name and the date in the file.          
+            <li>These fields populate the blog header. Make sure the date matches both the blog file name and the date inside the file.          
             </li>
 
-          <li>Create a file in <code>./content/pages/YYYYMMDD.xml</code></li>
+          <li>Create a page in the directory <code>./content/pages/YYYYMMDD.xml</code></li>
           <li>Insert the following code.</li>
           <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;../../xslt/site.xsl&quot;?&gt;
@@ -42,13 +42,13 @@
     &lt;content&gt;      
     &lt;/content&gt;
 &lt;/blogpost&gt;</code></pre>
-            <li>The <code>id</code> field is used to associate this entry with ./content/posts.xml make sure it matches. You can put any HTML you want into <code>content</code>(maybe?)</li>
+            <li>The <code>id</code> match the entry in <code>content</code>. From there you can add any HTML code inside <code>&lt;content&gt;</code>.(maybe?)</li>
   
         </ul>
         <blockquote>
           If you get xml errors wrap the erroring code in <a href="https://www.tutorialspoint.com/xml/xml_cdata_sections.htm" target="_blank">CDATA</a>
         </blockquote></p>
-        <p>I did some testing, it seems to work. I don't use chrome, or android so it might work?</p>
+        <p>I did some testing. It seems to work. I don't use chrome, or android so it might work outside Safari, Firefox, and the Mac ecosystem. Feel free to do a pull request if you find issues.</p>
         <table>
           <caption>Will it load?</caption>
           <thead>
@@ -87,9 +87,9 @@
     <p>
       Add new themes by modifying ./xslt/site.xslt. </p>
 <ul>
-  <li>You'll find <code>body.dark</code> and other themes waiting. Copy and paste a theme block, give your theme a new <code>body.$name</code>. </li>
-    <li>Once named and set go to <code>console.log("Theme Script")</code> and add your theme to the array of names. </li>
-     <li>Finally add the theme button inside <code>&lt;aside class="sidebar"&gt;</code> by copying an existing button and modifying <code>id="btn-$name"</code>, <code>background:#</code>, and <code>fill:#</code>. </li>
+  <li>You'll find options like <code>body.dark</code>. To create a new theme, copy and paste a theme block, give your theme a new <code>body.$name</code>. </li>
+    <li>Then update <code>console.log("Theme Script")</code> and add your theme to the array of names. </li>
+     <li>Finally add a theme button inside <code>&lt;aside class="sidebar"&gt;</code> by copying an existing button and modifying <code>id="btn-$name"</code>, <code>background:#</code>, and <code>fill:#</code>. </li>
    </ul>
     <p>
       Oh also I'm using a licensed font. <a href="https://input.djr.com/" target="_blank">input mono</a> because frankly its the perfect font and I love it. Its not licensed to you, and probably won't work. So you'll have to rip it out of the CSS... 
