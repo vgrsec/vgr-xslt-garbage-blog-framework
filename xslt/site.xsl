@@ -1293,7 +1293,7 @@
               </svg>
               <span class="visually-hidden">RSS</span>
             </a><br/>
-            <citation>Powered by <a href="https://github.com/vgrsec/vgr-xslt-garbage-blog-framework" target="_blank">vgr's garbage blog framework 1.0</a></citation>
+            <citation>Powered by <a href="https://github.com/vgrsec/vgr-xslt-garbage-blog-framework" target="_blank">vgr's garbage blog framework 1.1</a></citation>
             </p>
           </footer>
 
