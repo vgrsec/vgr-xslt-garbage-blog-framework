@@ -24,6 +24,8 @@
       <guid isPermaLink="false">post-20250707</guid>
       <pubDate>Mon, 7 Jul 2025 13:00:00 +0000</pubDate>
       <author>vgr.xsltgbf@example.com (vgr)</author>
+      <category>Topic 1</category>
+      <category>Alpha</category>
     </item>
 
     <!-- Second item -->
@@ -35,7 +37,9 @@
       <link>https://demo.vgrsec.com/content/posts/20240101.xml</link>
       <guid isPermaLink="false">post-20240101</guid>
       <pubDate>Mon, 01 Jan 2024 16:45:00 +0000</pubDate>
-      <author>vgr.xsltgbf@example.com (vgr)</author>            
+      <author>vgr.xsltgbf@example.com (vgr)</author>  
+      <category>Topic 3</category>
+      <category>Alpha</category>              
     </item>
   </channel>
 </rss>

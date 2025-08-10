@@ -17,6 +17,11 @@
     <description>Cool things that have been written</description>
     <link>https://garbageblogframework.vgrsec.com/content/pages/blog.xml</link>        
   </page>
+  <page id="page-topics">
+    <title>Topics</title>
+    <description>Cool things that have been written</description>
+    <link>https://garbageblogframework.vgrsec.com/content/pages/topics.xml</link>        
+  </page>  
   <page id="page-template">
     <title>Template</title>
     <description>See all the styles in action</description>

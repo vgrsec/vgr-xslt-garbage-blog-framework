@@ -43,6 +43,10 @@
       <p>This page is pulling double duty. First it's the index for all of the blog posts. Add a new post here, add the file, and our good friend <abbr title="Extensible Stylesheet Language Transformations">XSLT</abbr> does the rest. Just like <code>pages.xml</code>. However! posts.xml is <strong>VERY SPECIAL</strong>. Its secret is it's also an RSS compatible index. This means if you add a new blog here, with all the correct fields, RSS readers will automagic pick up your new post. If you don't believe me check <a href="https://validator.w3.org/feed/" target="_blank">w3</a>. That's why the date is such an odd format and not ISO 8601 like god intended. </p>
     </details>
     <details>
+      <summary>How do tagged topics work?</summary>
+      <p><code>posts.xml</code> continues to do heavy lifting. We're able to remain RSS spec compliant and have tags by adding a category tag for each item in posts.xml. This is explained by w3 <a href="https://www.w3schools.com/XML/rss_tag_category_item.asp" target="_blank">here</a>. XSLT then does some parsing and alphabetization through code I barely understand and poof multi topic blogs are covered. </p>
+    </details>    
+    <details>
       <summary>What to do with media</summary>
       <p>You can technically do whatever you want. I'm not your dad. I don't actually care. The framework has an assets folder, where pages and posts are split apart, then a folder per page or post. The reason being is that's how I like to do it. Don't like it, well, whatever keep it in S3, put it in cloudfront, whatever. It'll probably be fine XSLT seems to go with the flow most of the time</p>
     </details>
