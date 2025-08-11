@@ -15,6 +15,17 @@
            match="item" 
            use="substring(guid, 6, 4)"/>
 
+<!-- Unique categories (case-insensitive, trimmed) -->
+<xsl:key name="cats-by-name"
+         match="category"
+         use="translate(normalize-space(.),
+                        'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                        'abcdefghijklmnopqrstuvwxyz')"/>
+
+<!-- Lookup: from a normalized category label -> its <category> nodes -->
+<xsl:key name="cat-nodes-by-name"
+         match="category"
+         use="normalize-space(.)"/>
 
 
 <xsl:template match="/">
@@ -627,6 +638,9 @@
         font-family: var(--font-family-base);
         font-size: 0.9em;
         line-height: 1.5;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;   
       }
 
       /* Unordered Ordered Lists */
@@ -727,7 +741,7 @@
         position: relative;
         width: 100%;
         overflow-x: auto;  
-        overflow-y: hidden;  
+        overflow-y: visible;  
         scrollbar-gutter: stable;  
 
         width: 100%;
@@ -794,35 +808,63 @@
       }
 
       /* Video */
-      figure video {
+
+      video {
         display: block;
-        margin: 0 auto;
+        width: 100%;
         max-width: 100%;
-        max-height: 75vh;                     /* no taller than 75% of viewport */
-        width: auto;
         height: auto;
+        max-height: 75vh;
+        margin: 0 auto;
+        box-shadow: 0 0 10px var(--lightbox-shadow); 
+        outline: none;
       }
 
-      /* Ensure controls are shown */
-      figure video::-webkit-media-controls-enclosure,
-      figure video::-webkit-media-controls,
-      figure video::-webkit-media-controls-panel {
-        display: block;
-        opacity: 1 !important;
+      video::-webkit-media-controls-enclosure,
+      video::-webkit-media-controls,
+      video::-webkit-media-controls-panel,
+      video::-moz-media-controls {
+        display: block !important;
         visibility: visible !important;
+        opacity: 1 !important;
       }
-      figure video {
-        outline: none;                        /* remove focus ring if desired */
+
+      table video {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100% !important;
+      }
+
+      table video::-webkit-media-controls-enclosure,
+      table video::-webkit-media-controls,
+      table video::-webkit-media-controls-panel {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
+
+      table video::-moz-media-controls {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
       }
 
       /* Audio */
-      figure audio {
+
+      audio {
         display: block;
+        width: 100%; 
+        max-width: 600px;  
         margin: 1em auto;
-        width: 100%;                          /* full width of figure */
-        max-width: 600px;                     /* optional cap for very wide layouts */
+        outline: none;
       }
 
+      audio::-webkit-media-controls-panel,
+      audio::-webkit-media-controls {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+      }
 
       /* Container */
       details {
@@ -833,6 +875,8 @@
         border-radius: 4px;
         box-shadow: 0 2px 4px var(--shadow);
         transition: background 0.3s, box-shadow 0.3s;
+        overflow-x: auto;
+        scrollbar-gutter: stable;
       }
 
       /* Summary header */
@@ -845,6 +889,13 @@
         font-weight: bold;
         color: var(--link);
         transition: color 0.3s;
+      }
+
+      details table {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box; 
+        table-layout: fixed; 
       }
 
       /* Hide native marker */
@@ -891,6 +942,32 @@
       details[open] > *:not(summary) {
         opacity: 1;
       }
+
+/* Compact, borderless tag menu */
+aside.sidebar .topic-list ,
+aside.sidebar .topic-list details,
+aside.sidebar .topic-list summary,
+aside.sidebar .topic-list ul,
+aside.sidebar .topic-list li {
+  margin: 0 !important;
+  padding: 0.1em 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Compact, borderless blog year list */
+aside.sidebar .year-list,
+aside.sidebar .year-list details,
+aside.sidebar .year-list summary,
+aside.sidebar .year-list ul,
+aside.sidebar .year-list li {
+  margin: 0 !important;
+  padding: 0.1em 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
 
       /* semantic/inline element styles */
       strong {
@@ -979,8 +1056,27 @@
         margin:           var(--time-margin);
       }
 
+      iframe {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        overflow-x: auto;
+        overflow-y: hidden;      
+        scrollbar-gutter: stable;
+        border: 0;
+      }
+
   </style>
+
 </xsl:template>
+
+
+<!-- This section is for organizing tags -->
+
+
+<!-- END TAG SORTING -->
+
 
 <xsl:template name="render">
 
@@ -1009,7 +1105,7 @@
             </section>
 
 
-            <!-- Blog posts list (newest first) -->
+            <!-- Chronological posts list (newest first) -->
             <section>
               <strong>Blog</strong>
 
@@ -1050,6 +1146,59 @@
               </ul>              
 
             </section>
+
+<section>
+  <strong>Topics</strong>
+  <ul class="topic-list">
+    <!-- iterate unique categories (dedup via key) -->
+    <xsl:for-each
+      select="$feedItems/category
+              [normalize-space(.)!='']
+              [generate-id()
+               =
+               generate-id(
+                 key('cats-by-name',
+                     translate(normalize-space(.),
+                               'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                               'abcdefghijklmnopqrstuvwxyz'))[1]
+               )]">
+
+      <!-- stable, case-insensitive sort -->
+      <xsl:sort select="translate(normalize-space(.),
+                                  'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                                  'abcdefghijklmnopqrstuvwxyz')"
+                data-type="text" order="ascending"/>
+
+      <xsl:variable name="catName" select="normalize-space(.)"/>
+      <xsl:variable name="slug"
+        select="translate($catName,
+                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ ',
+                          'abcdefghijklmnopqrstuvwxyz-')"/>
+
+      <details>
+        <summary>
+          <!-- summary text links to topics page anchor as well -->
+          <a href="{concat('/content/pages/topics.xml#', $slug)}">
+            <xsl:value-of select="$catName"/>
+          </a>
+        </summary>
+
+        <ul>
+          <!-- All posts for this category, newest first -->
+          <xsl:for-each select="key('cat-nodes-by-name', $catName)/parent::item">
+            <xsl:sort select="guid" order="descending" data-type="text"/>
+            <li>
+              <a href="{concat('/content/posts/', substring(guid,6,13), '.xml')}">
+                <xsl:value-of select="title"/>
+              </a>
+            </li>
+          </xsl:for-each>
+        </ul>
+      </details>
+    </xsl:for-each>
+  </ul>
+</section>
+
 
             <div style="display:flex; gap:1em; align-items:center;">
               <!-- Dark‐mode toggle icon: black background, green icon -->
@@ -1173,6 +1322,65 @@
                       </xsl:for-each>
                     </div>
                   </xsl:when>
+
+<xsl:when test="$pageid = 'topics'">
+  <div class="topics-index">
+    <h1>Topics</h1>
+
+    <!-- Alphabetized, de-duplicated list of topic sections -->
+    <xsl:for-each
+      select="$feedItems/category
+              [normalize-space(.)!='']
+              [generate-id()
+               =
+               generate-id(
+                 key('cats-by-name',
+                     translate(normalize-space(.),
+                               'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                               'abcdefghijklmnopqrstuvwxyz'))[1]
+               )]">
+
+      <!-- case-insensitive alphabetical sort -->
+      <xsl:sort select="translate(normalize-space(.),
+                                  'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                                  'abcdefghijklmnopqrstuvwxyz')"
+                data-type="text" order="ascending"/>
+
+      <xsl:variable name="catName" select="normalize-space(.)"/>
+      <xsl:variable name="slug"
+                    select="translate($catName,
+                                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ ',
+                                      'abcdefghijklmnopqrstuvwxyz-')"/>
+
+      <!-- One section per topic -->
+      <section class="topic" id="{$slug}">
+        <details>
+          <summary>
+            <span class="topic-name">
+              <xsl:value-of select="$catName"/>
+            </span>
+            <span class="count">
+              (<xsl:value-of select="count($feedItems[category[normalize-space(.)=$catName]])"/>)
+            </span>
+          </summary>
+
+          <ul>
+            <!-- Posts in this topic, newest first -->
+            <xsl:for-each select="key('cat-nodes-by-name', $catName)/parent::item">
+              <xsl:sort select="guid" order="descending" data-type="text"/>
+              <li>
+                <a href="{concat('/content/posts/', substring(guid,6,13), '.xml')}">
+                  <xsl:value-of select="concat(substring(guid,6,8), ' – ', title)"/>
+                </a>
+              </li>
+            </xsl:for-each>
+          </ul>
+        </details>
+      </section>
+    </xsl:for-each>
+  </div>
+</xsl:when>
+           
                   <xsl:otherwise>
                     <xsl:variable name="pageDoc"
                                   select="document(concat('/content/pages/', $pageid, '.xml'))"/>
@@ -1241,7 +1449,7 @@
               </svg>
               <span class="visually-hidden">RSS</span>
             </a><br/>
-            <citation>Powered by <a href="https://github.com/vgrsec/vgr-xslt-garbage-blog-framework" target="_blank">vgr's garbage blog framework 1.0</a></citation>
+            <citation>Powered by <a href="https://github.com/vgrsec/vgr-xslt-garbage-blog-framework" target="_blank">vgr's garbage blog framework 1.1</a></citation>
             </p>
           </footer>
 
@@ -1307,6 +1515,8 @@
           });
         })();
         </script>
+
+      
       </body>
   </xsl:template>
 

@@ -12,7 +12,7 @@
       <p>
         <a href="https://garbageblogframework.vgrsec.com" target="_blank">
           Demo - https://garbageblogframework.vgrsec.com</a><br/>
-        <a href="https://github.com/vgrsec/vgr-xslt-garbage-blog-framework" target="_blank">Code - https://github.com/vgrsec/vgr-garbage-blog-framework</a>
+        <a href="https://github.com/vgrsec/vgr-xslt-garbage-blog-framework" target="_blank">Code - https://github.com/vgrsec/vgr-xslt-garbage-blog-framework</a>
       </p>
 
 
@@ -105,5 +105,13 @@
     </ul>
 
       <img src="../assets/pages/home/home.png" alt="a quiet place"/>
+
+      <h1>Changelog</h1>
+      <h2>1.2</h2>
+      <p>Added tag support for blog posts</p>      
+      <h2>1.1</h2>
+      <p>Typos and CSS fixes</p>
+      <h2>1.0</h2>
+      <p>Initial release with minor typo cleanups throughout</p>
 
 </page>
