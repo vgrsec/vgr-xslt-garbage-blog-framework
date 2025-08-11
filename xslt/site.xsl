@@ -943,31 +943,31 @@
         opacity: 1;
       }
 
-/* Compact, borderless tag menu */
-aside.sidebar .topic-list ,
-aside.sidebar .topic-list details,
-aside.sidebar .topic-list summary,
-aside.sidebar .topic-list ul,
-aside.sidebar .topic-list li {
-  margin: 0 !important;
-  padding: 0.1em 0 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
+      /* Compact, borderless tag menu */
+      aside.sidebar .topic-list ,
+      aside.sidebar .topic-list details,
+      aside.sidebar .topic-list summary,
+      aside.sidebar .topic-list ul,
+      aside.sidebar .topic-list li {
+        margin: 0 !important;
+        padding: 0.1em 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
 
-/* Compact, borderless blog year list */
-aside.sidebar .year-list,
-aside.sidebar .year-list details,
-aside.sidebar .year-list summary,
-aside.sidebar .year-list ul,
-aside.sidebar .year-list li {
-  margin: 0 !important;
-  padding: 0.1em 0 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
+      /* Compact, borderless blog year list */
+      aside.sidebar .year-list,
+      aside.sidebar .year-list details,
+      aside.sidebar .year-list summary,
+      aside.sidebar .year-list ul,
+      aside.sidebar .year-list li {
+        margin: 0 !important;
+        padding: 0.1em 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
 
       /* semantic/inline element styles */
       strong {
@@ -1147,57 +1147,57 @@ aside.sidebar .year-list li {
 
             </section>
 
-<section>
-  <strong>Topics</strong>
-  <ul class="topic-list">
-    <!-- iterate unique categories (dedup via key) -->
-    <xsl:for-each
-      select="$feedItems/category
-              [normalize-space(.)!='']
-              [generate-id()
-               =
-               generate-id(
-                 key('cats-by-name',
-                     translate(normalize-space(.),
-                               'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-                               'abcdefghijklmnopqrstuvwxyz'))[1]
-               )]">
+            <section>
+              <strong>Topics</strong>
+              <ul class="topic-list">
+                <!-- iterate unique categories (dedup via key) -->
+                <xsl:for-each
+                  select="$feedItems/category
+                          [normalize-space(.)!='']
+                          [generate-id()
+                           =
+                           generate-id(
+                             key('cats-by-name',
+                                 translate(normalize-space(.),
+                                           'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                                           'abcdefghijklmnopqrstuvwxyz'))[1]
+                           )]">
 
-      <!-- stable, case-insensitive sort -->
-      <xsl:sort select="translate(normalize-space(.),
-                                  'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-                                  'abcdefghijklmnopqrstuvwxyz')"
-                data-type="text" order="ascending"/>
+                  <!-- stable, case-insensitive sort -->
+                  <xsl:sort select="translate(normalize-space(.),
+                                              'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                                              'abcdefghijklmnopqrstuvwxyz')"
+                            data-type="text" order="ascending"/>
 
-      <xsl:variable name="catName" select="normalize-space(.)"/>
-      <xsl:variable name="slug"
-        select="translate($catName,
-                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ ',
-                          'abcdefghijklmnopqrstuvwxyz-')"/>
+                  <xsl:variable name="catName" select="normalize-space(.)"/>
+                  <xsl:variable name="slug"
+                    select="translate($catName,
+                                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ ',
+                                      'abcdefghijklmnopqrstuvwxyz-')"/>
 
-      <details>
-        <summary>
-          <!-- summary text links to topics page anchor as well -->
-          <a href="{concat('/content/pages/topics.xml#', $slug)}">
-            <xsl:value-of select="$catName"/>
-          </a>
-        </summary>
+                  <details>
+                    <summary>
+                      <!-- summary text links to topics page anchor as well -->
+                      <a href="{concat('/content/pages/topics.xml#', $slug)}">
+                        <xsl:value-of select="$catName"/>
+                      </a>
+                    </summary>
 
-        <ul>
-          <!-- All posts for this category, newest first -->
-          <xsl:for-each select="key('cat-nodes-by-name', $catName)/parent::item">
-            <xsl:sort select="guid" order="descending" data-type="text"/>
-            <li>
-              <a href="{concat('/content/posts/', substring(guid,6,13), '.xml')}">
-                <xsl:value-of select="title"/>
-              </a>
-            </li>
-          </xsl:for-each>
-        </ul>
-      </details>
-    </xsl:for-each>
-  </ul>
-</section>
+                    <ul>
+                      <!-- All posts for this category, newest first -->
+                      <xsl:for-each select="key('cat-nodes-by-name', $catName)/parent::item">
+                        <xsl:sort select="guid" order="descending" data-type="text"/>
+                        <li>
+                          <a href="{concat('/content/posts/', substring(guid,6,13), '.xml')}">
+                            <xsl:value-of select="title"/>
+                          </a>
+                        </li>
+                      </xsl:for-each>
+                    </ul>
+                  </details>
+                </xsl:for-each>
+              </ul>
+            </section>
 
 
             <div style="display:flex; gap:1em; align-items:center;">
@@ -1323,63 +1323,63 @@ aside.sidebar .year-list li {
                     </div>
                   </xsl:when>
 
-<xsl:when test="$pageid = 'topics'">
-  <div class="topics-index">
-    <h1>Topics</h1>
+                  <xsl:when test="$pageid = 'topics'">
+                    <div class="topics-index">
+                      <h1>Topics</h1>
 
-    <!-- Alphabetized, de-duplicated list of topic sections -->
-    <xsl:for-each
-      select="$feedItems/category
-              [normalize-space(.)!='']
-              [generate-id()
-               =
-               generate-id(
-                 key('cats-by-name',
-                     translate(normalize-space(.),
-                               'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-                               'abcdefghijklmnopqrstuvwxyz'))[1]
-               )]">
+                      <!-- Alphabetized, de-duplicated list of topic sections -->
+                      <xsl:for-each
+                        select="$feedItems/category
+                                [normalize-space(.)!='']
+                                [generate-id()
+                                 =
+                                 generate-id(
+                                   key('cats-by-name',
+                                       translate(normalize-space(.),
+                                                 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                                                 'abcdefghijklmnopqrstuvwxyz'))[1]
+                                 )]">
 
-      <!-- case-insensitive alphabetical sort -->
-      <xsl:sort select="translate(normalize-space(.),
-                                  'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-                                  'abcdefghijklmnopqrstuvwxyz')"
-                data-type="text" order="ascending"/>
+                        <!-- case-insensitive alphabetical sort -->
+                        <xsl:sort select="translate(normalize-space(.),
+                                                    'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                                                    'abcdefghijklmnopqrstuvwxyz')"
+                                  data-type="text" order="ascending"/>
 
-      <xsl:variable name="catName" select="normalize-space(.)"/>
-      <xsl:variable name="slug"
-                    select="translate($catName,
-                                      'ABCDEFGHIJKLMNOPQRSTUVWXYZ ',
-                                      'abcdefghijklmnopqrstuvwxyz-')"/>
+                        <xsl:variable name="catName" select="normalize-space(.)"/>
+                        <xsl:variable name="slug"
+                                      select="translate($catName,
+                                                        'ABCDEFGHIJKLMNOPQRSTUVWXYZ ',
+                                                        'abcdefghijklmnopqrstuvwxyz-')"/>
 
-      <!-- One section per topic -->
-      <section class="topic" id="{$slug}">
-        <details>
-          <summary>
-            <span class="topic-name">
-              <xsl:value-of select="$catName"/>
-            </span>
-            <span class="count">
-              (<xsl:value-of select="count($feedItems[category[normalize-space(.)=$catName]])"/>)
-            </span>
-          </summary>
+                        <!-- One section per topic -->
+                        <section class="topic" id="{$slug}">
+                          <details>
+                            <summary>
+                              <span class="topic-name">
+                                <xsl:value-of select="$catName"/>
+                              </span>
+                              <span class="count">
+                                (<xsl:value-of select="count($feedItems[category[normalize-space(.)=$catName]])"/>)
+                              </span>
+                            </summary>
 
-          <ul>
-            <!-- Posts in this topic, newest first -->
-            <xsl:for-each select="key('cat-nodes-by-name', $catName)/parent::item">
-              <xsl:sort select="guid" order="descending" data-type="text"/>
-              <li>
-                <a href="{concat('/content/posts/', substring(guid,6,13), '.xml')}">
-                  <xsl:value-of select="concat(substring(guid,6,8), ' – ', title)"/>
-                </a>
-              </li>
-            </xsl:for-each>
-          </ul>
-        </details>
-      </section>
-    </xsl:for-each>
-  </div>
-</xsl:when>
+                            <ul>
+                              <!-- Posts in this topic, newest first -->
+                              <xsl:for-each select="key('cat-nodes-by-name', $catName)/parent::item">
+                                <xsl:sort select="guid" order="descending" data-type="text"/>
+                                <li>
+                                  <a href="{concat('/content/posts/', substring(guid,6,13), '.xml')}">
+                                    <xsl:value-of select="concat(substring(guid,6,8), ' – ', title)"/>
+                                  </a>
+                                </li>
+                              </xsl:for-each>
+                            </ul>
+                          </details>
+                        </section>
+                      </xsl:for-each>
+                    </div>
+                  </xsl:when>
            
                   <xsl:otherwise>
                     <xsl:variable name="pageDoc"
@@ -1449,7 +1449,7 @@ aside.sidebar .year-list li {
               </svg>
               <span class="visually-hidden">RSS</span>
             </a><br/>
-            <citation>Powered by <a href="https://github.com/vgrsec/vgr-xslt-garbage-blog-framework" target="_blank">vgr's garbage blog framework 1.1</a></citation>
+            <citation>Powered by <a href="https://github.com/vgrsec/vgr-xslt-garbage-blog-framework" target="_blank">vgr's garbage blog framework 1.2</a></citation>
             </p>
           </footer>
 
